@@ -169,10 +169,10 @@ func NewAuthCodeFlowGroup(p GroupParams, clientSecret string) *AuthCodeFlowGroup
 	return &AuthCodeFlowGroup{
 		params:       p,
 		clientSecret: clientSecret,
-		Client:       &http.Client {
+		Client: &http.Client{
 			Timeout: 35 * time.Second,
 		},
-		UserAgent:    internal.UserAgent,
+		UserAgent: internal.UserAgent,
 	}
 }
 

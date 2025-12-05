@@ -127,8 +127,8 @@ func NewVK(tokens ...string) *VK {
 	vk.Handler = vk.DefaultHandler
 
 	vk.MethodURL = MethodURL
-	vk.Client = &http.Client {
-		Timeout: 35 * time.Second,
+	vk.Client = &http.Client{
+		Timeout: 900 * time.Second,
 	}
 	vk.Limit = LimitGroupToken
 	vk.UserAgent = internal.UserAgent

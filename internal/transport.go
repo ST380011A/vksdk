@@ -40,7 +40,8 @@ func ContextClient(ctx context.Context) *http.Client {
 			return hc
 		}
 	}
-	return &http.Client {
+
+	return &http.Client{
 		Timeout: 35 * time.Second,
 	}
 }

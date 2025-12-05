@@ -143,7 +143,7 @@ func NewAuthCodeFlowUser(p UserParams, clientSecret string) *AuthCodeFlowUser {
 	return &AuthCodeFlowUser{
 		params:       p,
 		clientSecret: clientSecret,
-		Client:       &http.Client {
+		Client: &http.Client{
 			Timeout: 35 * time.Second,
 		},
 		UserAgent:    internal.UserAgent,
@@ -326,7 +326,7 @@ func DirectAuth(p DirectAuthParams) (*UserToken, error) {
 	req := buildDirectAuthRequest(p)
 
 	if p.Client == nil {
-		p.Client = &http.Client {
+		p.Client = &http.Client{
 			Timeout: 35 * time.Second,
 		}
 	}
