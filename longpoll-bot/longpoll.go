@@ -47,10 +47,10 @@ type LongPoll struct {
 // NewLongPoll returns a new LongPoll.
 func NewLongPoll(vk *api.VK, groupID int) (*LongPoll, error) {
 	lp := &LongPoll{
-		VK:       vk,
-		GroupID:  groupID,
-		Wait:     25,
-		Client:   &http.Client{
+		VK:      vk,
+		GroupID: groupID,
+		Wait:    25,
+		Client: &http.Client{
 			Timeout: 35 * time.Second,
 		},
 		FuncList: events.NewFuncList(),
@@ -69,10 +69,10 @@ func NewLongPollCommunity(vk *api.VK) (*LongPoll, error) {
 	}
 
 	lp := &LongPoll{
-		VK:       vk,
-		GroupID:  resp.Groups[0].ID,
-		Wait:     25,
-		Client:   &http.Client{
+		VK:      vk,
+		GroupID: resp.Groups[0].ID,
+		Wait:    25,
+		Client: &http.Client{
 			Timeout: 35 * time.Second,
 		},
 		FuncList: events.NewFuncList(),

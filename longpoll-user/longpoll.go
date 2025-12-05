@@ -105,12 +105,12 @@ type LongPoll struct {
 // NewLongPoll returns a new LongPoll.
 func NewLongPoll(vk *api.VK, mode Mode) (*LongPoll, error) {
 	lp := &LongPoll{
-		VK:        vk,
-		Mode:      mode,
-		Version:   3,
-		Wait:      25,
-		funcList:  make(FuncList),
-		Client:    &http.Client{
+		VK:       vk,
+		Mode:     mode,
+		Version:  3,
+		Wait:     25,
+		funcList: make(FuncList),
+		Client: &http.Client{
 			Timeout: 35 * time.Second,
 		},
 		UserAgent: internal.UserAgent,

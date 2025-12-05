@@ -146,7 +146,7 @@ func NewAuthCodeFlowUser(p UserParams, clientSecret string) *AuthCodeFlowUser {
 		Client: &http.Client{
 			Timeout: 35 * time.Second,
 		},
-		UserAgent:    internal.UserAgent,
+		UserAgent: internal.UserAgent,
 	}
 }
 
