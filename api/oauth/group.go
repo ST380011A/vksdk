@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/SevereCloud/vksdk/v3/internal"
 )
@@ -168,7 +169,9 @@ func NewAuthCodeFlowGroup(p GroupParams, clientSecret string) *AuthCodeFlowGroup
 	return &AuthCodeFlowGroup{
 		params:       p,
 		clientSecret: clientSecret,
-		Client:       http.DefaultClient,
+		Client:       &http.Client {
+			Timeout: 35 * time.Second,
+		},
 		UserAgent:    internal.UserAgent,
 	}
 }

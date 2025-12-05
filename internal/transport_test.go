@@ -37,7 +37,9 @@ func TestContextClient(t *testing.T) {
 		assert.Equal(t, wantClient, client)
 	}
 
-	f(context.Background(), http.DefaultClient)
+	f(context.Background(), &http.Client {
+		Timeout: 35 * time.Second,
+	})
 
 	ctx := context.Background()
 	httpClient := &http.Client{Timeout: 2 * time.Second}

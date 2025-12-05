@@ -13,6 +13,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/SevereCloud/vksdk/v3"
 	"github.com/SevereCloud/vksdk/v3/api"
@@ -44,16 +45,14 @@ type LongPoll struct {
 }
 
 // NewLongPoll returns a new LongPoll.
-//
-// The LongPoll will use the http.DefaultClient.
-// This means that if the http.DefaultClient is modified by other components
-// of your application the modifications will be picked up by the SDK as well.
 func NewLongPoll(vk *api.VK, groupID int) (*LongPoll, error) {
 	lp := &LongPoll{
 		VK:       vk,
 		GroupID:  groupID,
 		Wait:     25,
-		Client:   http.DefaultClient,
+		Client:   &http.Client{
+			Timeout: 35 * time.Second,
+		},
 		FuncList: events.NewFuncList(),
 	}
 
@@ -63,10 +62,6 @@ func NewLongPoll(vk *api.VK, groupID int) (*LongPoll, error) {
 }
 
 // NewLongPollCommunity returns a new LongPoll for community token.
-//
-// The LongPoll will use the http.DefaultClient.
-// This means that if the http.DefaultClient is modified by other components
-// of your application the modifications will be picked up by the SDK as well.
 func NewLongPollCommunity(vk *api.VK) (*LongPoll, error) {
 	resp, err := vk.GroupsGetByID(nil)
 	if err != nil {
@@ -77,7 +72,9 @@ func NewLongPollCommunity(vk *api.VK) (*LongPoll, error) {
 		VK:       vk,
 		GroupID:  resp.Groups[0].ID,
 		Wait:     25,
-		Client:   http.DefaultClient,
+		Client:   &http.Client{
+			Timeout: 35 * time.Second,
+		},
 		FuncList: events.NewFuncList(),
 	}
 

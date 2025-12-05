@@ -112,10 +112,6 @@ type Response struct {
 
 // NewVK returns a new VK.
 //
-// The VKSDK will use the http.DefaultClient.
-// This means that if the http.DefaultClient is modified by other components
-// of your application the modifications will be picked up by the SDK as well.
-//
 // In some cases this might be intended, but it is a better practice
 // to create a custom HTTP Client to share explicitly through
 // your application. You can configure the VKSDK to use the custom
@@ -131,7 +127,9 @@ func NewVK(tokens ...string) *VK {
 	vk.Handler = vk.DefaultHandler
 
 	vk.MethodURL = MethodURL
-	vk.Client = http.DefaultClient
+	vk.Client = &http.Client {
+		Timeout: 35 * time.Second,
+	}
 	vk.Limit = LimitGroupToken
 	vk.UserAgent = internal.UserAgent
 

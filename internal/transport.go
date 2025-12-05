@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/SevereCloud/vksdk/v3"
 )
@@ -39,8 +40,9 @@ func ContextClient(ctx context.Context) *http.Client {
 			return hc
 		}
 	}
-
-	return http.DefaultClient
+	return &http.Client {
+		Timeout: 35 * time.Second,
+	}
 }
 
 // ContextUserAgent return User-Agent from context.

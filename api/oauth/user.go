@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 
 	"github.com/SevereCloud/vksdk/v3/internal"
 )
@@ -142,7 +143,9 @@ func NewAuthCodeFlowUser(p UserParams, clientSecret string) *AuthCodeFlowUser {
 	return &AuthCodeFlowUser{
 		params:       p,
 		clientSecret: clientSecret,
-		Client:       http.DefaultClient,
+		Client:       &http.Client {
+			Timeout: 35 * time.Second,
+		},
 		UserAgent:    internal.UserAgent,
 	}
 }
@@ -323,7 +326,9 @@ func DirectAuth(p DirectAuthParams) (*UserToken, error) {
 	req := buildDirectAuthRequest(p)
 
 	if p.Client == nil {
-		p.Client = http.DefaultClient
+		p.Client = &http.Client {
+			Timeout: 35 * time.Second,
+		}
 	}
 
 	resp, err := p.Client.Do(req)

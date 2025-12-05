@@ -59,6 +59,7 @@ import (
 	"net/url"
 	"strconv"
 	"sync/atomic"
+	"time"
 
 	"github.com/SevereCloud/vksdk/v3/api"
 	"github.com/SevereCloud/vksdk/v3/internal"
@@ -102,10 +103,6 @@ type LongPoll struct {
 }
 
 // NewLongPoll returns a new LongPoll.
-//
-// The LongPoll will use the http.DefaultClient.
-// This means that if the http.DefaultClient is modified by other components
-// of your application the modifications will be picked up by the SDK as well.
 func NewLongPoll(vk *api.VK, mode Mode) (*LongPoll, error) {
 	lp := &LongPoll{
 		VK:        vk,
@@ -113,7 +110,9 @@ func NewLongPoll(vk *api.VK, mode Mode) (*LongPoll, error) {
 		Version:   3,
 		Wait:      25,
 		funcList:  make(FuncList),
-		Client:    http.DefaultClient,
+		Client:    &http.Client{
+			Timeout: 35 * time.Second,
+		},
 		UserAgent: internal.UserAgent,
 	}
 
